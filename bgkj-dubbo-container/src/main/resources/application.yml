@@ -1,0 +1,94 @@
+spring:
+  profiles:
+    active: @package.environment@
+  main:
+    banner-mode: "off"
+
+logging:
+  level:
+    root: DEBUG
+    org.apache.tomcat: WARN
+    org.apache.apache: WARN
+    sun.rmi: WARN
+    org.springframework.core.env.PropertySourcesPropertyResolver: WARN
+    ma.glasnost.orika: WARN
+    ch.qos.logback: WARN
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    com.ctrip.framework.apollo.internals.RemoteConfigLongPollService: WARN
+    com.alibaba.dubbo.monitor.dubbo.DubboMonitor: WARN
+    org.apache.http.wire: WARN
+    org.apache.http.impl.conn: WARN
+    org.apache.commons.beanutils.converters: WARN
+
+debug: false
+server:
+  port: 9090
+#  port: ${random.int[10000,65000]}
+
+
+---
+spring:
+  profiles: dev
+# 开发环境
+  
+# 代码热加载
+# 使用远程更新，您需要使用与要连接的远程项目相同的类路径运行org.springframework.boot.devtools.RemoteSpringApplication。 传递给应用程序的必选参数应该是您要连接到的远程URL。
+  devtools:
+    livereload:
+      port: 35729
+      enabled: true
+    restart:
+        # Additional paths to watch for changes.    ../bgkj-dao,
+ #    additional-paths: ../bgkj-api,../bgkj-service
+      enabled: true
+    remote:
+      debug:
+            # Local remote debug server port.
+        local-port: 8010
+        enabled: true
+      restart:
+        enabled: true
+        # HTTP header used to transfer the shared secret.
+      secret-header-name: X-AUTH-TOKEN
+        # A shared secret required to establish a connection (required to enable remote support).
+      secret: pagoda
+#     context-path: /.~~spring-boot!
+
+dubbo:
+  port: 20880
+  timeout: 5000
+  registry: zookeeper://61.141.64.250:2181
+
+
+---
+spring:
+  profiles: test
+# 测试环境
+
+dubbo:
+  port: 20880
+  timeout: 5000
+  registry: zookeeper://61.141.64.250:2181
+  
+
+
+---
+spring:
+  profiles: uat
+# uat环境
+
+dubbo:
+  port: 20880
+  timeout: 5000
+  registry: zookeeper://61.141.64.250:2181
+
+
+---
+spring:
+  profiles: production
+# production环境
+
+dubbo:
+  port: 20880
+  timeout: 5000
+  registry: zookeeper://61.141.64.250:2181  

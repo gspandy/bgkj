@@ -1,0 +1,8 @@
+# 在此文件中列出不想被代码生成器覆盖的文件名
+TestOrderService.java
+TestUserService.java
+testApplyTabService.java
+TestAddressService.java
+TestMMService.java
+TestOrgService.java
+TestCatService.java
